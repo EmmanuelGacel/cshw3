@@ -22,13 +22,28 @@ void display_strings(char **strings) {
     }
     printf("]\n");
 }
-
+//Mobaxterm
 static char **copy_args_lowercase(int argc, char **argv) {
-    return NULL;
+	if (argc > 1){
+		int size = 0;
+		int i,j;
+		char **base_pointer;
+		char **copy_pointer;
+		for (i = 1; i < argc; i++){
+			count = count + my_strlen((*argv + i)); // eq to echo, eq argv[1] "String\0", you can use mystring/length
+		}
+		base_pointer = copy_pointer = (char*)malloc(size*sizeof(char));
+		for (i = 1; i < argc; i++){
+			*copy_pointer = my_strcopy(*copypointer,(*argv + i));
+		}	
+		return p;
+	}
+	return NULL;
 }
 
 static void free_copy(char **copy) {
-    return;
+	free(*copy); 
+	return;
 }
 
 
