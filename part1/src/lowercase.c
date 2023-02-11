@@ -26,19 +26,27 @@ void display_strings(char **strings) {
 static char **copy_args_lowercase(int argc, char **argv) {
 	
 	if (argc > 1){
-		int size = 0;
-		int i;
-		char **base_pointer;
-		char **copy_pointer;
+		int i; //skip first arg
+		char *copy_pointer;
 		size_t count;
-		for (i = 1; i < argc; i++){
-			count = count + my_strlen((*argv + i)); // eq to echo, eq argv[1] "String\0", you can use mystring/length
+		for (i = 1, count = 12; i < argc; i++){ //saves in count, total # of chars
+			printf("word = %s\n", *argv + count);
+			count = count + my_strlen(*argv + count); // *argv + i, goes to address of next string
+			count += 1; //accounts for the space
 		}
-		base_pointer = copy_pointer = (char*)malloc(size*sizeof(char));
-		for (i = 1; i < argc; i++){
-			*copy_pointer = my_strcpy(*copy_pointer,(*argv + i));
+		
+		count = count - 13; //takes out the ./lowercase and the last added space
+		printf ("count = %ld\n", count);
+				
+		copy_pointer = (char*)malloc((count*sizeof(char) + 1)); //allocates memory for copy, based on count
+		
+
+		for (i = 1; i < argc; i++){ //makes all the chars lowercse
+			my_strlower(my_strcpy(copy_pointer,(*argv + i)));
+
 		}
-		return p;
+		char **answer = &copy_pointer; //holds address of copy pointer
+		return answer;
 	}
 	return NULL;
 /*
