@@ -24,21 +24,49 @@ void display_strings(char **strings) {
 }
 //Mobaxterm
 static char **copy_args_lowercase(int argc, char **argv) {
+	
 	if (argc > 1){
 		int size = 0;
-		int i,j;
+		int i;
 		char **base_pointer;
 		char **copy_pointer;
+		size_t count;
 		for (i = 1; i < argc; i++){
 			count = count + my_strlen((*argv + i)); // eq to echo, eq argv[1] "String\0", you can use mystring/length
 		}
 		base_pointer = copy_pointer = (char*)malloc(size*sizeof(char));
 		for (i = 1; i < argc; i++){
-			*copy_pointer = my_strcopy(*copypointer,(*argv + i));
-		}	
+			*copy_pointer = my_strcpy(*copy_pointer,(*argv + i));
+		}
 		return p;
 	}
 	return NULL;
+/*
+ * static char **copy_args_lowercase(int argc, char **argv) {
+        if (argc > 1){ //only executes if arguments were supplied
+                //int size = 0;
+                int i;
+                //char **copy_pointer;
+                size_t count;
+
+                for (i = 1; i < argc; i++){ //iterates for as many arguments there are
+                        //adds the length of each argument to the total
+                        count = count + my_strlen((argv[i])); // eq to echo, eq argv[1] "String\0"
+                }
+
+                char *copy_pointer = (char*)malloc(sizeof(argc)+ 1); //ensures copy is of valid size
+
+                for (i = 1; i < argc; i++){
+                        *copy_pointer = my_strcpy(*copy_pointer,(argv[i]));
+                }
+
+                my_strlower(*copy_pointer); //has a void return value
+
+                return copy_pointer; //
+        }
+        return NULL;
+}
+ */
 }
 
 static void free_copy(char **copy) {
