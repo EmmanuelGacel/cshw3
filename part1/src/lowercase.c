@@ -26,6 +26,7 @@ void display_strings(char **strings) {
 static char **copy_args_lowercase(int argc, char **argv) {
 	
 	if (argc > 1){
+		/**
 		int i; //skip first arg
 		size_t  count;
 
@@ -51,6 +52,28 @@ static char **copy_args_lowercase(int argc, char **argv) {
 		copy_pointer = &copy;
 
 		return copy_pointer;
+		*/
+		//MOST SUCCESSFUL VERSION
+		char **copy_pointer = (char**)(malloc((argc + 1) *sizeof(char*))); //allocates sufficient memory
+                 
+                int length;
+                while(--argc > 0){
+                        length = my_strlen(*++argv);//length of current argument
+                        printf("length = %d\n", length);
+
+                        char temp[length + 1], *ptemp; //makes dst array with proper size
+                        ptemp = temp; //pointer to temp                 
+
+                        *++copy_pointer = (my_strcpy(ptemp, *argv)); //sets next pointer in cp
+                        printf("Current cp = %s\n", *copy_pointer);
+
+                        my_strlower(*copy_pointer); //lowers array cp is currently at   
+                        printf("lowered cp = %s\n", *copy_pointer);
+
+                }
+
+                return copy_pointer;
+		
 	}
 	return NULL;
 }
