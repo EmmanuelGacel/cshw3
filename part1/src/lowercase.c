@@ -27,54 +27,30 @@ static char **copy_args_lowercase(int argc, char **argv) {
 	
 	if (argc > 1){
 		int i; //skip first arg
-		char *copy_pointer;
-		size_t count;
-		for (i = 1, count = 12; i < argc; i++){ //saves in count, total # of chars
-			printf("word = %s\n", *argv + count);
-			count = count + my_strlen(*argv + count); // *argv + i, goes to address of next string
+		size_t  count;
+
+		for (i = 1; i < argc; i++){ //saves in count, total # of chars
+			printf("word = %s\n", argv[i]);
+			count = count + my_strlen(argv[i]); // *argv + i, goes to address of next string
 			count += 1; //accounts for the space
 		}
 		
-		count = count - 13; //takes out the ./lowercase and the last added space
+		count = count - 1; //takes out the ./lowercase and the last added space
 		printf ("count = %ld\n", count);
 				
-		copy_pointer = (char*)malloc((count*sizeof(char) + 1)); //allocates memory for copy, based on count
+		char *copy_pointer = (char*)malloc((count*sizeof(char) + 1)); //allocates memory based on count
 		
-
-		for (i = 1; i < argc; i++){ //makes all the chars lowercse
-			my_strlower(my_strcpy(copy_pointer,(*argv + i)));
-
+		
+		for (i = 1; i < argc; i++){ //copies over all the args into copy_pointer
+			my_strcpy(copy_pointer,(argv[i]));
 		}
-		char **answer = &copy_pointer; //holds address of copy pointer
-		return answer;
+
+		my_strlower(copy_pointer); //sets all values in cp to lowercase
+
+		//FIGURE OUT RETURN TYPE
+		return char** answer = &copy_pointer;
 	}
 	return NULL;
-/*
- * static char **copy_args_lowercase(int argc, char **argv) {
-        if (argc > 1){ //only executes if arguments were supplied
-                //int size = 0;
-                int i;
-                //char **copy_pointer;
-                size_t count;
-
-                for (i = 1; i < argc; i++){ //iterates for as many arguments there are
-                        //adds the length of each argument to the total
-                        count = count + my_strlen((argv[i])); // eq to echo, eq argv[1] "String\0"
-                }
-
-                char *copy_pointer = (char*)malloc(sizeof(argc)+ 1); //ensures copy is of valid size
-
-                for (i = 1; i < argc; i++){
-                        *copy_pointer = my_strcpy(*copy_pointer,(argv[i]));
-                }
-
-                my_strlower(*copy_pointer); //has a void return value
-
-                return copy_pointer; //
-        }
-        return NULL;
-}
- */
 }
 
 static void free_copy(char **copy) {
