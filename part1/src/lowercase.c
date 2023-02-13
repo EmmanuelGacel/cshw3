@@ -30,25 +30,27 @@ static char **copy_args_lowercase(int argc, char **argv) {
 		size_t  count;
 
 		for (i = 1; i < argc; i++){ //saves in count, total # of chars
-			printf("word = %s\n", argv[i]);
-			count = count + my_strlen(argv[i]); // *argv + i, goes to address of next string
-			count += 1; //accounts for the space
+			count = count + my_strlen(argv[i]); // *argv + i, goes to address of next str
+			count = count - 1; //takes out the ./lowercase and the last added space
+
 		}
 		
-		count = count - 1; //takes out the ./lowercase and the last added space
-		printf ("count = %ld\n", count);
-				
-		char *copy_pointer = (char*)malloc((count*sizeof(char) + 1)); //allocates memory based on count
-		
+		char **copy_pointer;
+		char *copy = (char*)malloc((count*sizeof(char) + 1)); //allocates memory based on count
 		
 		for (i = 1; i < argc; i++){ //copies over all the args into copy_pointer
-			my_strcpy(copy_pointer,(argv[i]));
+			printf("strcopy = %s\n", argv[i]);
+			my_strcpy(copy,(argv[i])); //passes array of string to cp
 		}
 
-		my_strlower(copy_pointer); //sets all values in cp to lowercase
 
-		//FIGURE OUT RETURN TYPE
-		return char** answer = &copy_pointer;
+		my_strlower(copy); //sets all values in cp to lowercase
+
+		//printf("copy = %s\n", copy_pointer[3]);
+		//printf("final: %s\n ", *copy_pointer);
+		copy_pointer = &copy;
+
+		return copy_pointer;
 	}
 	return NULL;
 }
