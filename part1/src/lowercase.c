@@ -53,20 +53,28 @@ static char **copy_args_lowercase(int argc, char **argv) {
 
 		return copy_pointer;
 		*/
+		
 		//MOST SUCCESSFUL VERSION
+		printf("made it 1!!! \n");
+		int d = (argc + 1) * sizeof(char*);
+		printf("argc + 1 = %d\n", (argc + 1));
+		printf("size of char = %ld\n", sizeof(char*));
+		printf("mallocked space: %d\n", d);
 		char **copy_pointer = (char**)(malloc((argc + 1) *sizeof(char*))); //allocates sufficient memory
-                 
+              
                 int length;
                 while(--argc > 0){
+
                         length = my_strlen(*++argv);//length of current argument
                         printf("length = %d\n", length);
-
+			
                         char temp[length + 1], *ptemp; //makes dst array with proper size
                         ptemp = temp; //pointer to temp                 
+			
 
                         *++copy_pointer = (my_strcpy(ptemp, *argv)); //sets next pointer in cp
                         printf("Current cp = %s\n", *copy_pointer);
-
+			
                         my_strlower(*copy_pointer); //lowers array cp is currently at   
                         printf("lowered cp = %s\n", *copy_pointer);
 
