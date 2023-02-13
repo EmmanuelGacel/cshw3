@@ -16,15 +16,18 @@ size_t my_strlen(char *src){
 
 //Taken from page 105 of the K&R textbook
 char *my_strcpy(char *dst, char *src){
-	printf("reached strcpy\n");
-	char *pdst = &dst[0];//saves pointer to beginning of dst
-	if (*src != '\0'){
-		//*dst++ referes to the to the character dst pointed at before increment
-		while ((*dst++ = *src++) != '\0');//copies src into dst until it equals null
-
-	} else return NULL;
-	return pdst; //returns the first element of dst (saved earlier) after copying
+        printf("reached strcpy\n");
+        char *pdst = &dst[0];//saves pointer to beginning of dst
+        if (*src != '\0'){
+                //*dst++ referes to the to the character dst pointed at before increment
+                while ((*dst = *src) != '\0'){; //copies src into dst until it equals null
+                        dst++;
+                        src++;
+                }
+        } else return NULL;
+        return pdst; //returns the first element of dst (saved earlier) after copying
 }
+
 
 void my_strlower(char *src){
 	printf("reached strlower\n"); 
