@@ -32,21 +32,15 @@ static char **copy_args_lowercase(int argc, char **argv) {
                 int length;
                 while(--num_args > 0){
                         length = my_strlen(*++argv);//length of current argument
-                        printf("length = %d\n", length);
              
                         char *ptemp  = (char *)(malloc (length * sizeof(char) + 1)); //char array space
 
                         *++copy_pointer = (my_strcpy(ptemp, *argv)); //sets next pointer in cp
-                        printf("Current cp = %s\n", *copy_pointer);
                         
-    
                         my_strlower(*copy_pointer); //lowers array cp is currently at   
-                        printf("lowered cp = %s\n", *copy_pointer);
                           
                 }
-                printf("argc = %d\n", argc);
-
-                return copy_pointer - (argc - 2);
+                return copy_pointer - (argc - 2); //accounts for file name, and brings to 0
 		
 	}
 	return NULL;
