@@ -33,23 +33,52 @@ linked_list* create_linked_list(){
 }
 
 bool insert_in_order(linked_list *list, void *data , int (*cmp)(const void*, const void *)){
-        node *n = create_node(data); //Is it okay if I assign this node to a pointer
-        if (list != NULL){
-                if (cmp(data, list -> head) < 1){//Does this compare pointers or literals?
-                        *list -> head -> prev = *n;
-                        *list -> head = *n; //Are we storing literals of pointers?
-                }else if (cmp(data, list -> tail) > 1){
-                        *list -> tail -> next = *n;//Check arrow grammar
-                        *list -> tail = *n;
-                }else{
-                        node* index;
-                        for(index = (list -> head); (cmp(data, index->data) > 0); index = (index -> next));//Chech arrow grammar
-                        *index -> prev =  *n;
-                        *index = (*index -> prev);
-                        *index -> next =  *n;
+        
+	node *n = create_node(data); //Is it okay if I assign this node to a pointer
+
+	if (list != NULL){
+        	int result = (cmp(data, list->head)) ; //compares the pointers (looks at head)
+						       
+		if (result < 0){ //node is less than head
+                        list->head->prev = n; //sets node to previous of the head
+                        list->head = n; //new head is the new node
+                }else if (result > 0){ //node is more than head
+			node* index = list->head; //creates temp pointer to head
+		
+			//moves index to correct spot
+			for(index = (list->head); (cmp(data, index->data) > 0); index = (index->next));
+			
+			if(cmp(data, index->data) == 0){ //case for duplicates
+				while(cmp(data, index->data) == 0 && index != NULL){
+					index = (index->next);//move past all duplicates
+				}
+				if(index->next != list->tail){
+
+                                	n->next = index->next; //sets n's next to node after index
+                                	index->prev->next = n; //sets node before index's next to n
+				}
+                        	else{
+					list->tail->next = n; //sets node after the tail to
+		                        list -> tail = n;
+                        	}	
+			}
+                }else{ //node is equal to head
+			node* index = list->head; //creates temp pointer to head
+                        while(cmp(data, index->data) == 0 && index != NULL){
+                                index = (index->next);//move past all duplicates
+                        }
+                        if(index->next != list->tail){
+				n->next = index->next; //sets n's next to node after index
+                                index->prev->next = n; //sets node before index's next to n
+                        }
+                        else{
+                                list->tail->next = n; //sets node after the tail to
+                                list -> tail = n;
+                        }
                 }
-        }else{
-                list->head = list ->tail =  n;
+                
+        }else{ //list does not yet exist (set head and tail to n)
+                list->head = list->tail = n;
         }
         return true;
 

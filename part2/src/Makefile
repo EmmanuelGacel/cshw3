@@ -1,5 +1,5 @@
 CC      = gcc
-TARGET  = sortargs.c
+TARGET  = sortargs
 C_FILES = $(filter-out $(TARGET).c, $(wildcard *.c))
 OBJS    = $(patsubst %.c,%.o,$(C_FILES))
 CFLAGS  = -g -Wall -Werror -pedantic-errors
