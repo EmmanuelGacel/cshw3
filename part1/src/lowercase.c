@@ -40,14 +40,20 @@ static char **copy_args_lowercase(int argc, char **argv) {
                         my_strlower(*copy_pointer); //lowers array cp is currently at   
                           
                 }
-                return copy_pointer - (argc - 2); //accounts for file name, and brings to 0
+                return (copy_pointer - (argc - 2)); //accounts for file name, and brings to 0
 		
 	}
 	return NULL;
 }
 
 static void free_copy(char **copy) {
-	free(*copy); 
+
+	while(copy != NULL){
+        	free(*copy); //frees all of the char array
+		copy++;//increments copy
+	}
+
+	free(copy); //frees the pointer array
 	return;
 }
 
@@ -64,7 +70,7 @@ int main(int argc, char **argv) {
 
     printf("Lowercase arguments : ");
     display_strings(copy);
-
+	
     free_copy(copy);
 
     return EXIT_SUCCESS;
