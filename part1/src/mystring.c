@@ -13,16 +13,17 @@ size_t my_strlen(char *src){
 	return n;
 }
 
-//Taken from page 105 of the K&R textbook
+//Taken from page 105 of the K&R textbook (slightly modified)
 char *my_strcpy(char *dst, char *src){
-        char *pdst = &dst[0];//saves pointer to beginning of dst
-        if (*src != '\0'){
+        if(src == NULL){
+		return NULL;
+	}
+	char *pdst = &dst[0];//saves pointer to beginning of dst
                 //*dst++ referes to the to the character dst pointed at before increment
-                while ((*dst = *src) != '\0'){; //copies src into dst until it equals null
-                        dst++;
-                        src++;
-                }
-        } else return NULL;
+        while ((*dst = *src) != '\0'){; //copies src into dst until it equals null
+                dst++;
+                src++;
+        }
         return pdst; //returns the first element of dst (saved earlier) after copying
 }
 

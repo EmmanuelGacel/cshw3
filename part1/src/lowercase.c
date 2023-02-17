@@ -25,32 +25,32 @@ void display_strings(char **strings) {
 //Mobaxterm
 static char **copy_args_lowercase(int argc, char **argv) {
 	
-	if (argc > 1){
-		char **copy_pointer = (char**)(malloc(argc *sizeof(char*) + 1)); //allocates sufficient memory
-                
-                int num_args = argc; //saves value of args      
-                int length;
-                while(--num_args > 0){
-                        length = my_strlen(*++argv);//length of current argument
-             
-                        char *ptemp  = (char *)(malloc (length * sizeof(char) + 1)); //char array space
-
-                        *++copy_pointer = (my_strcpy(ptemp, *argv)); //sets next pointer in cp
-                        
-                        my_strlower(*copy_pointer); //lowers array cp is currently at   
-                          
-                }
-                return (copy_pointer - (argc - 2)); //accounts for file name, and brings to 0
+	if (argc > 1) {
+	//initializes and malloc pointer array (**copy_pointer)
+        char **copy_pointer = (char**) malloc((argc + 1) * sizeof(char*));
+        int num_args = argc; //saves argc value, so num_args can be freely manipulated
+        
+	while (--num_args > 0) { 
+            	int current = num_args - 1; //since argv's first arg is function call, argv calls are one index ahead of copy_pointer call
+		//initializes and mallocs copy_pointer subarry first, set first element to first argument 
+	    	copy_pointer[current] = (char*) malloc((my_strlen(argv[num_args]) + 1) * sizeof(char));
 		
-	}
-	return NULL;
+	    	my_strcpy(copy_pointer[current], argv[num_args]); //copys argv arg into copy_pointer array 
+            
+	    	my_strlower(copy_pointer[current]);//lowers all the entire subarray
+        }
+        return copy_pointer;
+    }
+    return NULL; //if argc doesn't contain any arguments
 }
 
 static void free_copy(char **copy) {
-
-	while(copy != NULL){
-        	free(*copy); //frees all of the char array
-		copy++;//increments copy
+	
+	char **temporary = copy;//avoids messing with copy directly
+				
+	while(*temporary != NULL){ //iterates through all pointers on pointer array
+        	free(*temporary); //frees all of the char array
+		temporary++;//increments to next pointer in copy
 	}
 
 	free(copy); //frees the pointer array
