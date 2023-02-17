@@ -37,32 +37,50 @@ bool insert_in_order(linked_list *list, void *data , int (*cmp)(const void*, con
 	node *n = create_node(data); //Is it okay if I assign this node to a pointer
 
 	if (list != NULL){
-        	int result = (cmp(data, list->head)) ; //compares the pointers (looks at head)
-						       
-		if (result < 0){ //node is less than head
-                        list->head->prev = n; //sets node to previous of the head
-                        list->head = n; //new head is the new node
-                }else if (result > 0){ //node is more than head
+		int result;
+		printf("DEBUG: before\n");
+        	if (list -> head != NULL){
+			result = (cmp(data, list->head)); //compares the pointers (looks at head)
+			printf("Result: %d\n", result);
+		} else{result= 1;}
+		printf("DEBUG: after\n");		
+		if (result > 0){ //node is less than head
+			if (list -> head != NULL){
+				list->head->prev = n; //sets node to previous of the head
+				list->head = n; //new head is the new node
+				++list->size;
+			} else{
+				list -> head = list -> tail = n;
+				++list->size;
+			}
+                }else if (result < 0){ //node is more than head
 			node* index = list->head; //creates temp pointer to head
-		
+			printf("Made it 1\n");
+
+	
 			//moves index to correct spot
-			for(index = (list->head); (cmp(data, index->data) > 0); index = (index->next));
+			for(index = (list->head); (cmp(data, index->data) < 0); index = (index->next));
+			printf("Made it 2 \n");
 			
 			if(cmp(data, index->data) == 0){ //case for duplicates
 				while(cmp(data, index->data) == 0 && index != NULL){
 					index = (index->next);//move past all duplicates
+					printf("Made it 1\n");
 				}
+				printf("Made it 2 \n");
 				if(index->next != list->tail){
-
+					 printf("Made it 3 \n");
                                 	n->next = index->next; //sets n's next to node after index
                                 	index->prev->next = n; //sets node before index's next to n
+					++list->size;
 				}
                         	else{
 					list->tail->next = n; //sets node after the tail to
 		                        list -> tail = n;
+					++list->size;
                         	}	
-			}
-                }else{ //node is equal to head
+		
+			}else{ //node is equal to head
 			node* index = list->head; //creates temp pointer to head
                         while(cmp(data, index->data) == 0 && index != NULL){
                                 index = (index->next);//move past all duplicates

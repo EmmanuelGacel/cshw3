@@ -2,6 +2,7 @@
 #include <string.h>
 #include "linked_list.h"
 int str_cmp(const void *str1, const void *str2){
+	printf("DEBUG: 1: %s, 2: %s\n", (char*) str1, (char*) str2);
 	return strcmp( ( const char *)str1,  (const char *)str2);
 }
 void print_function (void* data){
