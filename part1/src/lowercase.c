@@ -27,7 +27,7 @@ static char **copy_args_lowercase(int argc, char **argv) {
 	
 	if (argc > 1) {
 	//initializes and malloc pointer array (**copy_pointer)
-        char **copy_pointer = (char**) malloc((argc + 1) * sizeof(char*));
+        char **copy_pointer = (char**) malloc((argc) * sizeof(char*)); //allocates room to hold null pointer too
         int num_args = argc; //saves argc value, so num_args can be freely manipulated
         
 	while (--num_args > 0) { 
@@ -38,7 +38,7 @@ static char **copy_args_lowercase(int argc, char **argv) {
 	    	my_strcpy(copy_pointer[current], argv[num_args]); //copys argv arg into copy_pointer array 
             
 	    	my_strlower(copy_pointer[current]);//lowers all the entire subarray
-        }
+	}
         return copy_pointer;
     }
     return NULL; //if argc doesn't contain any arguments
@@ -48,9 +48,8 @@ static void free_copy(char **copy) {
 	
 	char **temporary = copy;//avoids messing with copy directly
 				
-	while(*temporary != NULL){ //iterates through all pointers on pointer array
-        	free(*temporary); //frees all of the char array
-		temporary++;//increments to next pointer in copy
+	while(*temporary){ //iterates through all pointers on pointer array
+        	free(*temporary++); //frees all of the char array
 	}
 
 	free(copy); //frees the pointer array

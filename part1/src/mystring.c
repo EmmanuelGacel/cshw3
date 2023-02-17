@@ -24,6 +24,7 @@ char *my_strcpy(char *dst, char *src){
                 dst++;
                 src++;
         }
+	*dst = '\0'; //sets last index to NULL
         return pdst; //returns the first element of dst (saved earlier) after copying
 }
 
