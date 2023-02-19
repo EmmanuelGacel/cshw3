@@ -7,7 +7,7 @@ int str_cmp(const void *str1, const void *str2){
 	//return strcmp( *str1,  *str2);
 }
 void print_function (void* data){
-	printf("%s", (char*) data);
+	printf("\"%s\"", (char*) data);
 }
 void free_data(void *data) {
 	//char *str = (char *)data;
